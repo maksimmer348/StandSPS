@@ -26,7 +26,7 @@ public class TestProgram
 
     public TestProgram(string name)
     {
-        Name = name;
+        //Name = name;
         ModulesList = new();
     }
     
@@ -37,6 +37,7 @@ public class TestProgram
     public void AddModuleToList(AbstractTestModule module)
     {
         ModulesList.Add(module);
+        
     }
     
     /// <summary>

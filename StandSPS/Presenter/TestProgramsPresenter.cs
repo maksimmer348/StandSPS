@@ -1,43 +1,87 @@
-﻿namespace StandSPS;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data;
+
+namespace StandSPS;
 public class TestProgramsPresenter
 {
-    private Model model;
+    private TestProgramsModel model;
     private TestProgramsForm form;
-    
-    
-    public TestProgramsPresenter(TestProgramsForm form , Model model)
+  
+    //public event Action<DataTable> OnChangeModuleTestProgram;
+    public event  Action<string,DataTable> OnSelectedTestProgram;
+    public TestProgramsPresenter(TestProgramsForm form , TestProgramsModel model)
     {
         this.model = model;
         this.form = form;
-        model.Notify+= ModelOnNotify;
+       // form.CreateNewTestProgram += CreateNewTestProgram;
+        //form.ChangeIndexTestProgram += ChangeTestProgram;
+        //form.SelectTestProgram += SelectTestProgram;
+        
+    }
+   
+    public void CreateDefaultProgram()
+    {
+        if (!model.DataBaseExist)
+        {
+            model.CreateNewTestProgram();
+            model.SaveProgramToList("По умолчанию");
+            OnSelectedTestProgram?.Invoke(model.GetNameTestProgram(),new DataTable());
+            //OnCreateNewTestProgram?.Invoke(new DataTable());
+            //TODO добавить класс с информацией о всех модулях текущей программы в new DataTable()
+            //OnChangeModuleTestProgram?.Invoke(new DataTable());
+        }
+    }
+    public void CreateNewTestProgram()
+    {
+        model.CreateNewTestProgram();
+        OnSelectedTestProgram?.Invoke(model.GetNameTestProgram(), new DataTable());
+        //OnCreateNewTestProgram?.Invoke(new DataTable());
+        //TODO добавить класс с информацией о всех модулях текущей программы в new DataTable()
+        //OnChangeModuleTestProgram?.Invoke(new DataTable());
+    }
+    
+    public void SelectTestProgram(int index)
+    {
+        OnSelectedTestProgram?.Invoke(model.GetNameTestProgram(),new DataTable());
+        //TODO добавить класс с информацией о всех модулях текущей программы в new DataTable()
+        //OnChangeModuleTestProgram?.Invoke(new DataTable());
+        //form.NameTestProgram = model.GetNameTestProgram();
     }
 
     
-    private void ModelOnNotify(string programName, int indexProgram)
-    {
-        form.NameTestProgram = programName;
-    }
-    
-    public void CreateNewProgram()
-    {
-       model.CreateNewProgram(form.NameTestProgram);
-    }
-
     public void ChangeTestProgram()
     {
-        throw new NotImplementedException();
+        if (model.TestProgramIsAlive)
+        {
+            form.CreateMessage($"Сперва сохранитье текущую программу " +
+                               $"{model.GetNameTestProgram()}");
+            return;
+        }
+        model.SetProgramFromList(form.GetIndexTestProgram);
+        form.NameTestProgram = model.GetNameTestProgram();
+        
+        //OnChangeModuleTestProgram?.Invoke(new DataTable());
     }
 
+    
+    public bool ValidateNameCollision(string name)
+    {
+        return true;
+        //return testPrograms.Select(x => x.Name == name).First();
+    }
+   
     public void DeleteTestProgram()
     {
-        throw new NotImplementedException();
+        if (model.TestProgramIsAlive)
+        {
+            // if (model)
+            // {
+            //     
+            // }
+        }
     }
 
-    public void SelectTestProgram()
-    {
-        form.NameTestProgram = model.GetNameTestProgram();
-    }
-
+   
     public void ApplyTestProgram()
     {
         throw new NotImplementedException();
@@ -50,7 +94,20 @@ public class TestProgramsPresenter
 
     public void SaveElement()
     {
-        throw new NotImplementedException();
+        var programNameText = form.NameTestProgram;
+        
+        if (string.IsNullOrWhiteSpace(programNameText))
+        {
+            form.CreateMessage("У программы дожно быть имя");
+            return;
+        }
+        if (ValidateNameCollision(programNameText))
+        {
+            form.CreateMessage("Программа не дожна иметь имя, что уже есть в списке");
+            return;
+        }
+
+        model.SaveProgramToList(form.NameTestProgram);
     }
 
     public void CancelElement()
@@ -95,4 +152,9 @@ public class TestProgramsPresenter
     {
         throw new NotImplementedException();
     }
+    private void ModelOnNotify(string programName, int indexProgram)
+    {
+        form.NameTestProgram = programName;
+    }
+    
 }

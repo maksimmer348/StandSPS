@@ -1,15 +1,26 @@
 ﻿
 
+using System.Data;
+
 namespace StandSPS;
     public partial class TestProgramsForm : Form
     {
         private TestProgramsPresenter presenter;
+        public event Action CreateNewTestProgram;
+        public event Action ChangeIndexTestProgram;
+        public event Action<int> SelectTestProgram;
+        DataTable dt = new();
         public TestProgramsForm()
         {
             InitializeComponent();
-            presenter = new TestProgramsPresenter(this, new Model());
+            presenter = new TestProgramsPresenter(this, new TestProgramsModel());
+            presenter.OnSelectedTestProgram += ReadingModulesList;
+            presenter.CreateDefaultProgram();
+           
         }
-        
+
+      
+
         #region додбавление программы в список и работа с этим списком
 
         /// <summary>
@@ -19,7 +30,8 @@ namespace StandSPS;
         /// <param name="e"></param>
         private void btnCreateTestProgram_Click(object sender, EventArgs e)
         {
-            presenter.CreateNewProgram();
+            CreateNewTestProgram?.Invoke();
+            //presenter.CreateNewProgram();
         }
 
         /// <summary>
@@ -29,7 +41,8 @@ namespace StandSPS;
         /// <param name="e"></param>
         private void btnChangeTestProgram_Click(object sender, EventArgs e)
         {
-            presenter.ChangeTestProgram();
+          ChangeIndexTestProgram?.Invoke();
+            //presenter.ChangeTestProgram();
         }
 
         /// <summary>
@@ -49,7 +62,9 @@ namespace StandSPS;
         /// <param name="e"></param>
         private void listBoxProgramsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            presenter.SelectTestProgram();
+            var index = listBoxProgramsList.SelectedIndex;
+            SelectTestProgram?.Invoke(index);
+            //presenter.SelectTestProgram();
         }
 
         /// <summary>
@@ -157,7 +172,7 @@ namespace StandSPS;
            set => tBoxTestProgramName.Text = value;
         }
 
-        public int SetIndexTestProgram => listBoxProgramsList.SelectedIndex;
+        public int GetIndexTestProgram => listBoxProgramsList.SelectedIndex;
 
         public TypeTestModule GetTypeTestProgram
         {
@@ -186,6 +201,18 @@ namespace StandSPS;
             MessageBox.Show(text);
         }
 
+        private void PresenterOnCreateNewTestProgram()
+        {
+            tBoxTestProgramName.Text = String.Empty;
+        }
+        private void ReadingModulesList(string name, DataTable dataTable)
+        {
+            tBoxTestProgramName.Text = name;
+            dGridModulesList.DataSource = dt;
+        }
+        
         #endregion
-      
+       
+
+
     }
