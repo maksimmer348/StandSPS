@@ -1,17 +1,13 @@
-﻿using System.Data;
-using System.Diagnostics;
-using StandSPS.Model;
-using StandSPS.Presenter;
+﻿
 
-namespace StandSPS
-{
+namespace StandSPS;
     public partial class TestProgramsForm : Form
     {
         private TestProgramsPresenter presenter;
         public TestProgramsForm()
         {
             InitializeComponent();
-            presenter = new TestProgramsPresenter(this, new TestProgramsModel());
+            presenter = new TestProgramsPresenter(this, new Model());
         }
         
         #region додбавление программы в список и работа с этим списком
@@ -163,20 +159,21 @@ namespace StandSPS
 
         public int SetIndexTestProgram => listBoxProgramsList.SelectedIndex;
 
-        public TypeTestProgram GetTypeTestProgram
+        public TypeTestModule GetTypeTestProgram
         {
             get
             {
-                if (rBtnContactCheck.Checked)
-                {
-                    return TypeTestProgram.Test1;
-                }
-
-                if (rBtnContactCheck.Checked)
-                {
-                    return TypeTestProgram.Test1;
-                }
-                return TypeTestProgram.None;
+                
+                // if (rBtnContactCheck.Checked)
+                // {
+                //     return TypeTestProgram.Test1;
+                // }
+                //
+                // if (rBtnContactCheck.Checked)
+                // {
+                //     return TypeTestProgram.Test1;
+                // }
+                return TypeTestModule.None;
             }
         }
 
@@ -192,4 +189,3 @@ namespace StandSPS
         #endregion
       
     }
-}

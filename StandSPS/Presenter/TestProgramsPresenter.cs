@@ -1,14 +1,11 @@
-﻿using StandSPS.Model;
-
-namespace StandSPS.Presenter;
-
+﻿namespace StandSPS;
 public class TestProgramsPresenter
 {
-    private TestProgramsModel model;
+    private Model model;
     private TestProgramsForm form;
     
     
-    public TestProgramsPresenter(TestProgramsForm form , TestProgramsModel model)
+    public TestProgramsPresenter(TestProgramsForm form , Model model)
     {
         this.model = model;
         this.form = form;
@@ -23,19 +20,7 @@ public class TestProgramsPresenter
     
     public void CreateNewProgram()
     {
-        //TODO оформить в фабрику
-        switch (form.GetTypeTestProgram)
-        {
-            case TypeTestProgram.Test1:
-                model.CreateNewProgram(new Test1(form.NameTestProgram));
-                break;
-            case TypeTestProgram.Test2:
-                model.CreateNewProgram(new Test2(form.NameTestProgram));
-                break;
-            case TypeTestProgram.None:
-                form.CreateMessage("Выберите тип программы");
-                break;
-        }
+       model.CreateNewProgram(form.NameTestProgram);
     }
 
     public void ChangeTestProgram()
@@ -75,6 +60,19 @@ public class TestProgramsPresenter
 
     public void AddModule()
     {
+        //TODO оформить в фабрику
+        // switch (form.GetTypeTestProgram)
+        // {
+        //     case TypeTestProgram.Test1:
+        //         model.CreateNewProgram(new Test1(form.NameTestProgram));
+        //         break;
+        //     case TypeTestProgram.Test2:
+        //         model.CreateNewProgram(new Test2(form.NameTestProgram));
+        //         break;
+        //     case TypeTestProgram.None:
+        //         form.CreateMessage("Выберите тип программы");
+        //         break;
+        // }
         throw new NotImplementedException();
     }
 

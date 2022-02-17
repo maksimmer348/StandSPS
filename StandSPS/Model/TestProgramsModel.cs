@@ -1,20 +1,15 @@
-﻿namespace StandSPS.Model;
+﻿namespace StandSPS;
 
-public enum TypeTestProgram
-{
-    Test1,
-    Test2,
-    None
-}
-public class TestProgramsModel
+
+public class Model
 {
     private TestProgram testProgram;
     public bool TestProgramIsAlive { get; set; }
     public delegate void TestProgramHandler(string programName, int indexProgram);
     public event TestProgramHandler? Notify;         
-    public void CreateNewProgram(TestProgram program)
+    public void CreateNewProgram(string nameProgram)
     {
-        TestProgram newTestProgram = testProgram;
+        testProgram = new TestProgram(nameProgram);
         TestProgramIsAlive = true;
     }
 
@@ -22,42 +17,4 @@ public class TestProgramsModel
     {
         throw new NotImplementedException();
     }
-}
-
-public class Test2 : TestProgram
-{
-    public Test2(string name) : base(name)
-    {
-      
-    }
-
-    public override void Operation()
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public class Test1 : TestProgram
-{
-    public Test1(string name) : base(name)
-    {
-    }
-
-    public override void Operation()
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public abstract class TestProgram
-{
-    public string Name { get; set; }
-
-    protected TestProgram(string name)
-    {
-        Name = name;
-    }
-
-    public abstract void Operation();
-
 }
