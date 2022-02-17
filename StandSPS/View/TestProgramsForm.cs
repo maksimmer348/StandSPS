@@ -210,6 +210,11 @@ namespace StandSPS;
             tBoxTestProgramName.Text = name;
             dGridModulesList.DataSource = dt;
         }
+
+        public void UpdateProgramsList(List<string> programsNames)
+        {
+            
+        }
         
         #endregion
        

@@ -5,6 +5,8 @@ public class TestProgramsModel
 {
     //private TestProgramCreator creator;
     public event  Action<TestProgram> OnSelectedTestProgram;
+    public event Action<List<TestProgram>> OnListProgramOnChanged;
+
     
     private TestProgram testProgram;
     private List<TestProgram> testPrograms = new ();
@@ -12,8 +14,7 @@ public class TestProgramsModel
     public bool TestProgramIsAlive { get; private set; }
     public bool DataBaseExist { get; set; }
 
-    public event Action<List<TestProgram>> ListProgramOnChanged;
-    
+   
     public void CreateNewTestProgram(string name = "")
     {
         TestProgramIsAlive = true;
@@ -36,7 +37,7 @@ public class TestProgramsModel
     public void RemoveTestProgram(TestProgram testProgram)
     {
         testPrograms.Remove(testProgram);
-        ListProgramOnChanged?.Invoke(testPrograms);
+        OnListProgramOnChanged?.Invoke(testPrograms);
         testProgram = null;
         TestProgramIsAlive = false;
     }
@@ -44,7 +45,7 @@ public class TestProgramsModel
     public void RenameTestProgram(string newName)
     {
          testProgram.Name = newName;
-         ListProgramOnChanged?.Invoke(testPrograms);
+         OnListProgramOnChanged?.Invoke(testPrograms);
     }
 
     public void SaveProgramToList(string name)
@@ -52,7 +53,7 @@ public class TestProgramsModel
         testProgram.Name = name;
         //TODO переделать под собтия
         testPrograms.Add(testProgram);
-        ListProgramOnChanged?.Invoke(testPrograms);
+        OnListProgramOnChanged?.Invoke(testPrograms);
         OnSelectedTestProgram?.Invoke(testProgram);
         testProgram = null;
         TestProgramIsAlive = false;
