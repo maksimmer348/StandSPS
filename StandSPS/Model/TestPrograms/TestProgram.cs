@@ -1,10 +1,14 @@
 namespace StandSPS;
 public class TestProgram
 {
+    
     public int Id { get; set; }
-
+    public bool ReadOnly { get; set; }
+   
+    public event Action<AbstractTestModule> OnModuleChanged;
     //меняем или изменяем имя вызывается ивент
-    public event Action<string> NameChanged;
+    public event Action<string> OnNameChanged;
+    
     private string _name;
 
     public string Name
@@ -15,7 +19,7 @@ public class TestProgram
             if (_name != value)
             {
                 _name = value;
-                NameChanged?.Invoke(Name);
+                OnNameChanged?.Invoke(Name);
             }
         }
     }
@@ -24,9 +28,8 @@ public class TestProgram
     /// </summary>
     public List<AbstractTestModule> ModulesList{ get; set; }
 
-    public TestProgram(string name)
+    public TestProgram()
     {
-        //Name = name;
         ModulesList = new();
     }
     
@@ -37,7 +40,7 @@ public class TestProgram
     public void AddModuleToList(AbstractTestModule module)
     {
         ModulesList.Add(module);
-        
+        OnModuleChanged?.Invoke(module);
     }
     
     /// <summary>
@@ -48,6 +51,6 @@ public class TestProgram
     {
         ModulesList = ModulesList.OrderBy(m => m.Id == module.Id).ToList();
     }
-    
-    
+
+  
 }

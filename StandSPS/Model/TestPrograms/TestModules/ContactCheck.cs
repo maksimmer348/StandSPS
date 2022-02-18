@@ -1,7 +1,7 @@
 ﻿namespace StandSPS;
     public class ContactCheck : AbstractTestModule
     {
-        public static ContactCheck Default = new (){Id = 1,Name = "Насртойка контактирования", ContactsCount = 1};
+       
 
         //проверка контактирования обязательна сдлетаь ее при создании нового испытания выполлняется один, раз потом блокируется
         //задана таблица слотов взять из новое испытание, еслли номер не нулевой знаачит там стоит источник,

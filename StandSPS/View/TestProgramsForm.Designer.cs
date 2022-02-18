@@ -495,6 +495,7 @@ namespace StandSPS
             this.listBoxProgramsList.Name = "listBoxProgramsList";
             this.listBoxProgramsList.Size = new System.Drawing.Size(229, 319);
             this.listBoxProgramsList.TabIndex = 18;
+            this.listBoxProgramsList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxProgramsList_MouseClick);
             this.listBoxProgramsList.SelectedIndexChanged += new System.EventHandler(this.listBoxProgramsList_SelectedIndexChanged);
             // 
             // btnChangeTestProgram

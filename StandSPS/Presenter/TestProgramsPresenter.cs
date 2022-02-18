@@ -7,25 +7,41 @@ public class TestProgramsPresenter
 {
     private TestProgramsModel model;
     private TestProgramsForm form;
-
+    DataTable dt;
     public TestProgramsPresenter(TestProgramsForm form, TestProgramsModel model)
     {
         this.model = model;
         this.form = form;
+        InitDataTable();
         form.CreateNewTestProgram += CreateNewTestProgram;
         form.ChangeIndexTestProgram += ChangeTestProgram;
         form.SelectTestProgram += SelectTestProgram;
-        model.OnListProgramOnChanged += ModelOnListProgramOnChanged;
-        model.OnSelectedTestProgram += ModelOnOnSelectedTestProgram;
+        model.OnListProgramChanged += ModelOnListProgramOnChanged;
+        model.OnSelectedTestProgram += OnSelectedTestProgram;
+        model.OnIndexProgramChanged += OnIndexProgramChanged;
     }
-
-    private void ModelOnOnSelectedTestProgram(TestProgram testProgram)
+    private void InitDataTable()
     {
-        foreach (var VARIABLE in testProgram.ModulesList)
-        {
-            
-        }
+        dt = new DataTable();
+        dt.Columns.Add("Module", typeof(string));
+        dt.Columns.Add("Descriprion", typeof(string));
+        dt.Columns.Add("Index", typeof(int));
+    }
+    private void OnIndexProgramChanged(int index)
+    {
+        form.UpdateProgramsIndex(index);
+    }
+    
+    private void OnSelectedTestProgram(TestProgram testProgram)
+    {
+        form.NameTestProgram = testProgram.Name;
         
+        dt.Rows.Clear();
+        foreach (var module in testProgram.ModulesList)
+        {
+            dt.Rows.Add(module.Name, module.Description(), module.Index);
+        }
+        form.ModulesListUpdate(dt);
     }
 
     private void ModelOnListProgramOnChanged(List<TestProgram> testPrograms)
@@ -38,18 +54,19 @@ public class TestProgramsPresenter
     {
         if (!model.DataBaseExist)
         {
-            model.CreateNewTestProgram();
-            model.SaveProgramToList("По умолчанию");
+            model.CreateDefaultTestProgram();
         }
     }
 
     public void CreateNewTestProgram()
     {
+        form.UiModeEditProgram();
         model.CreateNewTestProgram();
     }
 
     public void SelectTestProgram(int index)
     {
+        model.SelectedTestProgram(index);
     }
 
 
@@ -57,21 +74,25 @@ public class TestProgramsPresenter
     {
         if (model.TestProgramIsAlive)
         {
-            form.CreateMessage($"Сперва сохранитье текущую программу " +
+            form.CreateMessage($"Сперва сохраните текущую программу " +
                                $"{model.GetNameTestProgram()}");
             return;
         }
-
-        model.SetProgramFromList(form.GetIndexTestProgram);
+        if (model.ReadOnly)
+        {
+            form.CreateMessage("Программа только для чтения");
+            return;
+        }
+        model.SelectedTestProgram(form.GetIndexTestProgram);
         form.NameTestProgram = model.GetNameTestProgram();
-
+        form.UiModeEditProgram();
         //OnChangeModuleTestProgram?.Invoke(new DataTable());
     }
 
 
     public bool ValidateNameCollision(string name)
     {
-        return true;
+        return false;
         //return testPrograms.Select(x => x.Name == name).First();
     }
 
@@ -94,7 +115,6 @@ public class TestProgramsPresenter
 
     public void CancelTestProgram()
     {
-        throw new NotImplementedException();
     }
 
     public void SaveElement()
@@ -114,6 +134,7 @@ public class TestProgramsPresenter
         }
 
         model.SaveProgramToList(form.NameTestProgram);
+        form.UiModeEditProgramList();
     }
 
     public void CancelElement()
