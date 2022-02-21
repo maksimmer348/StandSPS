@@ -2,6 +2,7 @@
 
 public class SuperPresenter : AbstractPresenter<TestProgramsForm>
 {
+   
     public ProgramListPresenter ProgramList;
     public ModuleLibPresenter ModuleLib;
     public CreateEditProgramPresenter CreateEditProgram;
@@ -12,6 +13,5 @@ public class SuperPresenter : AbstractPresenter<TestProgramsForm>
         ModuleLib = new ModuleLibPresenter(form);
         CreateEditProgram = new CreateEditProgramPresenter(form, new ProgramModel());
     }
-    
     
 }

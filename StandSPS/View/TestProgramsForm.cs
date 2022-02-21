@@ -5,19 +5,21 @@ namespace StandSPS;
 public partial class TestProgramsForm : Form
 {
     public SuperPresenter SuperPresenter;
-
+    
+    
+    //+используется только здесь
+    //+не является какойто логикой просто данные
+    //не придется делать листвью/гриедвью публичным
+    //- веротно нарушает паттерн(инфы в интернет не нашел можно при mvc зранить в форме индексы)
+    //private int indexModule;
     public TestProgramsForm()
     {
         InitializeComponent();
         SuperPresenter = new SuperPresenter(this);
-       
-
+        
         UiModeEditProgramList();
     }
-
-  
-
-
+    
     #region додбавление программы в список и работа с этим списком
 
     /// <summary>
@@ -28,7 +30,7 @@ public partial class TestProgramsForm : Form
     private void btnCreateTestProgram_Click(object sender, EventArgs e)
     {
         //CreateNewTestProgram?.Invoke();
-        ////presenter.CreateNewProgram();
+        //SuperPresenter.();
     }
 
     /// <summary>
@@ -120,8 +122,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnAddModule_Click(object sender, EventArgs e)
     {
-        //SuperPresenter.CreateEditProgram.CreateEdit();
-        
+        SuperPresenter.CreateEditProgram.AddModule();
         //presenter.AddModule();
     }
 
@@ -132,6 +133,8 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnDelModule_Click(object sender, EventArgs e)
     {
+        SuperPresenter.CreateEditProgram.RemoveModule();
+        //SuperPresenter.CreateEditProgram.RemoveModule(indexModule);
         //presenter.DeleteModule();
     }
 
@@ -142,6 +145,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnUpModule_Click(object sender, EventArgs e)
     {
+        
         //presenter.MoveUpModule();
     }
 
@@ -162,9 +166,12 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void dGridModulesList_CellClick(object sender, DataGridViewCellEventArgs e)
     {
-        //presenter.SelectModule();
+        //SuperPresenter.SetIndexModule(e.RowIndex);
     }
+    private void dGridModulesList_MouseClick(object sender, MouseEventArgs e)
+    {
 
+    }
     #endregion
 
 
@@ -281,8 +288,9 @@ public partial class TestProgramsForm : Form
             pBoxModuleInProgramOrCycle, rBtnDelayBetwenMesaure, labelDelayBetwenMesaureMin,
             labelDelayBetwenMesaureSec);
     }
-    
+
+
     #endregion
 
-    
+   
 }

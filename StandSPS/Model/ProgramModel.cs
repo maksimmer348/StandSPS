@@ -3,10 +3,16 @@
 public class ProgramModel : AbstractModel
 {
     public event Action<List<AbstractTestModule>> OnChangedModuleList;
-    private List<AbstractTestModule> ModuleList = new List<AbstractTestModule>();
+    private List<AbstractTestModule> moduleList = new List<AbstractTestModule>();
     public void AddModule(AbstractTestModule module)
     {
-       ModuleList.Add(module);
-       OnChangedModuleList?.Invoke(ModuleList);
+       moduleList.Add(module);
+       OnChangedModuleList?.Invoke(moduleList);
     }
+    public void DeleteModule(int index)
+    {
+        moduleList.RemoveAt(index);
+        OnChangedModuleList?.Invoke(moduleList);
+    }
+    
 }

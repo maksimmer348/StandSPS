@@ -384,6 +384,7 @@ namespace StandSPS
             this.dGridModulesList.Size = new System.Drawing.Size(233, 260);
             this.dGridModulesList.TabIndex = 29;
             this.dGridModulesList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridModulesList_CellClick);
+            this.dGridModulesList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dGridModulesList_MouseClick);
             // 
             // btnUpModule
             // 
@@ -518,7 +519,7 @@ namespace StandSPS
             this.btnCreateTestProgram.UseVisualStyleBackColor = true;
             this.btnCreateTestProgram.Click += new System.EventHandler(this.btnCreateTestProgram_Click);
             // 
-            // CreateOrChangeTestProgram
+            // TestProgramsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -581,7 +582,7 @@ namespace StandSPS
         public System.Windows.Forms.RadioButton rBtnParamMeasureTemperature;
         private System.Windows.Forms.Button btnSaveTestProgram;
         private System.Windows.Forms.GroupBox gBoxModuleInProgramOrCycle;
-        private System.Windows.Forms.DataGridView dGridModulesList;
+        public System.Windows.Forms.DataGridView dGridModulesList;
         private System.Windows.Forms.Button btnUpModule;
         private System.Windows.Forms.Button btnDownModule;
         private System.Windows.Forms.Button btnDelModule;
@@ -595,6 +596,6 @@ namespace StandSPS
         private System.Windows.Forms.PictureBox pBoxCycle;
         private System.Windows.Forms.PictureBox pBoxCreateOrChangeTestProgramOrCycle;
         private System.Windows.Forms.PictureBox pBoxModuleInProgramOrCycle;
-        private System.Windows.Forms.ListBox listBoxProgramsList;
+        public System.Windows.Forms.ListBox listBoxProgramsList;
     }
 }
