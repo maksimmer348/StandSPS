@@ -1,6 +1,6 @@
 ﻿namespace StandSPS;
 
-    public class ParamMeasurementTemperature : AbstractTestModule
+    public record ParamMeasurementTemperature : AbstractTestModule
     {
        //замер темпертуры в камере дождатся лешу
        

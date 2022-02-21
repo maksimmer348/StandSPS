@@ -4,21 +4,14 @@ namespace StandSPS;
 
 public partial class TestProgramsForm : Form
 {
-    private TestProgramsPresenter presenter;
-    public event Action CreateNewTestProgram;
-    public event Action ChangeIndexTestProgram;
-    public event Action<int> SelectTestProgram;
-    
-
-    private UIController ui;
+    public SuperPresenter SuperPresenter;
 
     public TestProgramsForm()
     {
         InitializeComponent();
-        presenter = new TestProgramsPresenter(this, new TestProgramsModel());
-        ui = new UIController(this);
-        //presenter.OnSelectedTestProgram += ReadingModulesList;
-        presenter.CreateDefaultProgram();
+        SuperPresenter = new SuperPresenter(this);
+       
+
         UiModeEditProgramList();
     }
 
@@ -34,8 +27,8 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnCreateTestProgram_Click(object sender, EventArgs e)
     {
-        CreateNewTestProgram?.Invoke();
-        //presenter.CreateNewProgram();
+        //CreateNewTestProgram?.Invoke();
+        ////presenter.CreateNewProgram();
     }
 
     /// <summary>
@@ -45,7 +38,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnChangeTestProgram_Click(object sender, EventArgs e)
     {
-        ChangeIndexTestProgram?.Invoke();
+        //ChangeIndexTestProgram?.Invoke();
         //presenter.ChangeTestProgram();
     }
 
@@ -56,7 +49,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnDelTestProgram_Click(object sender, EventArgs e)
     {
-        presenter.DeleteTestProgram();
+        //presenter.DeleteTestProgram();
     }
 
     /// <summary>
@@ -68,13 +61,13 @@ public partial class TestProgramsForm : Form
     {
         //var index = listBoxProgramsList.SelectedIndex;
         //SelectTestProgram?.Invoke(index);
-        //presenter.SelectTestProgram();
+        ////presenter.SelectTestProgram();
     }
     private void listBoxProgramsList_MouseClick(object sender, MouseEventArgs e)
     {
         var index = listBoxProgramsList.SelectedIndex;
-        SelectTestProgram?.Invoke(index);
-        //presenter.SelectTestProgram();
+        //SelectTestProgram?.Invoke(index);
+        ////presenter.SelectTestProgram();
     }
     /// <summary>
     /// применить выбранную программу 
@@ -83,7 +76,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnSelectTestProgram_Click(object sender, EventArgs e)
     {
-        presenter.ApplyTestProgram();
+        //presenter.ApplyTestProgram();
     }
 
     /// <summary>
@@ -93,7 +86,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnCancelTestProgram_Click(object sender, EventArgs e)
     {
-        presenter.CancelTestProgram();
+        //presenter.CancelTestProgram();
     }
 
     #endregion
@@ -107,7 +100,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnSaveTestProgram_Click(object sender, EventArgs e)
     {
-        presenter.SaveElement();
+        //presenter.SaveElement();
     }
 
     /// <summary>
@@ -117,7 +110,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnCancelCreateTestProgram_Click(object sender, EventArgs e)
     {
-        presenter.CancelElement();
+        //presenter.CancelElement();
     }
 
     /// <summary>
@@ -127,7 +120,9 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnAddModule_Click(object sender, EventArgs e)
     {
-        presenter.AddModule();
+        //SuperPresenter.CreateEditProgram.CreateEdit();
+        
+        //presenter.AddModule();
     }
 
     /// <summary>
@@ -137,7 +132,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnDelModule_Click(object sender, EventArgs e)
     {
-        presenter.DeleteModule();
+        //presenter.DeleteModule();
     }
 
     /// <summary>
@@ -147,7 +142,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnUpModule_Click(object sender, EventArgs e)
     {
-        presenter.MoveUpModule();
+        //presenter.MoveUpModule();
     }
 
     /// <summary>
@@ -157,7 +152,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnDownModule_Click(object sender, EventArgs e)
     {
-        presenter.MoveDownModule();
+        //presenter.MoveDownModule();
     }
 
     /// <summary>
@@ -167,7 +162,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void dGridModulesList_CellClick(object sender, DataGridViewCellEventArgs e)
     {
-        presenter.SelectModule();
+        //presenter.SelectModule();
     }
 
     #endregion
@@ -187,15 +182,6 @@ public partial class TestProgramsForm : Form
     {
         get
         {
-            // if (rBtnContactCheck.Checked)
-            // {
-            //     return TypeTestProgram.Test1;
-            // }
-            //
-            // if (rBtnContactCheck.Checked)
-            // {
-            //     return TypeTestProgram.Test1;
-            // }
             return TypeTestModule.None;
         }
     }

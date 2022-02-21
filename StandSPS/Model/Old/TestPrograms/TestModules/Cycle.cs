@@ -1,7 +1,7 @@
 ﻿namespace StandSPS;
 
 
-    public class Cycle : AbstractTestModule
+    public record Cycle : AbstractTestModule
     {
         //в цике должны сущетсвовавать замер парамтеров, задеркжка, вклл выкл источника
         public decimal Hour { get; set; }

@@ -1,5 +1,5 @@
 ﻿namespace StandSPS;
-    public class SupplyOff: AbstractTestModule
+    public record SupplyOff: AbstractTestModule
     {
      
         public override string Description()

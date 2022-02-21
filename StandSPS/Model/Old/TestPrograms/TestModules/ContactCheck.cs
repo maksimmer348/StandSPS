@@ -1,5 +1,5 @@
 ﻿namespace StandSPS;
-    public class ContactCheck : AbstractTestModule
+    public record ContactCheck : AbstractTestModule
     {
        
 

@@ -13,9 +13,9 @@ public class TestProgramsPresenter
         this.model = model;
         this.form = form;
         InitDataTable();
-        form.CreateNewTestProgram += CreateNewTestProgram;
-        form.ChangeIndexTestProgram += ChangeTestProgram;
-        form.SelectTestProgram += SelectTestProgram;
+        // form.CreateNewTestProgram += CreateNewTestProgram;
+        // form.ChangeIndexTestProgram += ChangeTestProgram;
+        // form.SelectTestProgram += SelectTestProgram;
         model.OnListProgramChanged += ModelOnListProgramOnChanged;
         model.OnSelectedTestProgram += OnSelectedTestProgram;
         model.OnIndexProgramChanged += OnIndexProgramChanged;

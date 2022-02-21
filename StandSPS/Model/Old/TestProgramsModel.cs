@@ -1,11 +1,8 @@
 ﻿namespace StandSPS;
 
 
-public class TestProgramsModel
+public class TestProgramsModel 
 {
-    
-
-    
     private TestProgram testProgram;
     private List<TestProgram> testPrograms = new ();
     private AbstractTestModule testModule;
@@ -14,16 +11,8 @@ public class TestProgramsModel
     public event  Action<TestProgram> OnSelectedTestProgram;
     public event Action<List<TestProgram>> OnListProgramChanged;
     public event Action<int> OnIndexProgramChanged;
-    public event Action<string> OnProgramNameChanged
-    {
-        add => testProgram.OnNameChanged += value;
-        remove => testProgram.OnNameChanged  -= value;
-    }
-    public event Action<AbstractTestModule> OnModuleChanged
-    {
-        add => testProgram.OnModuleChanged += value;
-        remove => testProgram.OnModuleChanged  -= value;
-    }
+    
+    
     public bool TestProgramIsAlive { get; private set; }
     public bool DataBaseExist { get; set; }
     
@@ -33,7 +22,7 @@ public class TestProgramsModel
     public void CreateDefaultTestProgram()
     {
         //TODO как сделать оптимальнее
-        testProgram = new (){Id = 1,Name = "По умолчанию", ReadOnly = true};;
+        testProgram = new (){Id = 1,Name = "По умолчанию", ReadOnly = true};
         InitTestProgram();
         SaveProgramToList(testProgram.Name);
     }

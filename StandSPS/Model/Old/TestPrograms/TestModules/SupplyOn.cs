@@ -1,5 +1,5 @@
 ﻿namespace StandSPS;
-    public class SupplyOn : AbstractTestModule
+    public record SupplyOn : AbstractTestModule
     {
         //задана таблица слотов взять из новое испытание, если номер не нулевой знаачит там стоит источник,
         //подается ПОЛОВИННАЯ нагрузка и входное напряжение в зависивимости от подключаемого изделия (конфигурица в изделиях), 

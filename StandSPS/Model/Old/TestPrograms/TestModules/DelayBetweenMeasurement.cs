@@ -1,5 +1,5 @@
 ﻿namespace StandSPS;
-    public class DelayBetweenMeasurement : AbstractTestModule
+    public record DelayBetweenMeasurement : AbstractTestModule
     {
         //просто задержка между операциями без изменения их 
         

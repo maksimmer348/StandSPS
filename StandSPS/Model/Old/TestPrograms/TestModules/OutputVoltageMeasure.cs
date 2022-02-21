@@ -1,7 +1,7 @@
 ﻿namespace StandSPS;
 
  
-    public class OutputVoltageMeasure : AbstractTestModule
+    public record OutputVoltageMeasure : AbstractTestModule
     {
         //проверяме ВЫХОДНОЕ напряжение на соотвествеи нормама (конфигурица в изделиях), 
         //елси испытание пройдено или НЕТ, то записиыввпем данные в временную БД (напряжение и время (Datatim.Now)когда измерено),

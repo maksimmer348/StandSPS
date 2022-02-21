@@ -1,38 +1,12 @@
-namespace StandSPS;
-public class TestProgram
-{
-    
-    public int Id { get; set; }
-    public bool ReadOnly { get; set; }
-   
-    public event Action<AbstractTestModule> OnModuleChanged;
-    //меняем или изменяем имя вызывается ивент
-    public event Action<string> OnNameChanged;
-    
-    private string _name;
+﻿namespace StandSPS;
 
-    public string Name
-    {
-        get => _name;
-        set
-        {
-            if (_name != value)
-            {
-                _name = value;
-                OnNameChanged?.Invoke(Name);
-            }
-        }
-    }
+public record CycleTestModule : AbstractTestModule
+{
     /// <summary>
     /// список модулей
     /// </summary>
     public List<AbstractTestModule> ModulesList{ get; set; }
 
-    public TestProgram()
-    {
-        ModulesList = new();
-    }
-    
     /// <summary>
     /// добаавить один модуль в программу
     /// </summary>
@@ -40,9 +14,8 @@ public class TestProgram
     public void AddModuleToList(AbstractTestModule module)
     {
         ModulesList.Add(module);
-        OnModuleChanged?.Invoke(module);
     }
-    
+        
     /// <summary>
     /// изменить модуль в программе
     /// </summary>
@@ -51,6 +24,13 @@ public class TestProgram
     {
         ModulesList = ModulesList.OrderBy(m => m.Id == module.Id).ToList();
     }
-
-  
+    public CycleTestModule()
+    {
+        ModulesList = new();
+    }
+    
+    public override string Description()
+    {
+        throw new NotImplementedException();
+    }
 }

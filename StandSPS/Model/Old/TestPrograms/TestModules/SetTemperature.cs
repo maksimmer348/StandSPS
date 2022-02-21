@@ -1,5 +1,5 @@
 ﻿namespace StandSPS;
-    public class SetTemperature : AbstractTestModule
+    public record SetTemperature : AbstractTestModule
     {
         public SetTemperature()
         {
