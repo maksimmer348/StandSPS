@@ -67,7 +67,7 @@ namespace StandSPS
             this.btnDelTestProgram = new System.Windows.Forms.Button();
             this.btnCancelTestProgram = new System.Windows.Forms.Button();
             this.gBoxTestProgramList = new System.Windows.Forms.GroupBox();
-            this.listBoxProgramsList = new System.Windows.Forms.ListBox();
+            this.listViewPrograms = new System.Windows.Forms.ListView();
             this.btnChangeTestProgram = new System.Windows.Forms.Button();
             this.btnCreateTestProgram = new System.Windows.Forms.Button();
             this.gBoxModule.SuspendLayout();
@@ -476,7 +476,7 @@ namespace StandSPS
             // 
             // gBoxTestProgramList
             // 
-            this.gBoxTestProgramList.Controls.Add(this.listBoxProgramsList);
+            this.gBoxTestProgramList.Controls.Add(this.listViewPrograms);
             this.gBoxTestProgramList.Controls.Add(this.btnChangeTestProgram);
             this.gBoxTestProgramList.Controls.Add(this.btnCreateTestProgram);
             this.gBoxTestProgramList.Controls.Add(this.label1);
@@ -488,16 +488,14 @@ namespace StandSPS
             this.gBoxTestProgramList.TabStop = false;
             this.gBoxTestProgramList.Text = "Выбор программы испытания";
             // 
-            // listBoxProgramsList
+            // listViewPrograms
             // 
-            this.listBoxProgramsList.FormattingEnabled = true;
-            this.listBoxProgramsList.ItemHeight = 15;
-            this.listBoxProgramsList.Location = new System.Drawing.Point(10, 56);
-            this.listBoxProgramsList.Name = "listBoxProgramsList";
-            this.listBoxProgramsList.Size = new System.Drawing.Size(229, 319);
-            this.listBoxProgramsList.TabIndex = 18;
-            this.listBoxProgramsList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxProgramsList_MouseClick);
-            this.listBoxProgramsList.SelectedIndexChanged += new System.EventHandler(this.listBoxProgramsList_SelectedIndexChanged);
+            this.listViewPrograms.Location = new System.Drawing.Point(6, 56);
+            this.listViewPrograms.Name = "listViewPrograms";
+            this.listViewPrograms.Size = new System.Drawing.Size(233, 319);
+            this.listViewPrograms.TabIndex = 19;
+            this.listViewPrograms.UseCompatibleStateImageBehavior = false;
+            this.listViewPrograms.SelectedIndexChanged += new System.EventHandler(this.listViewPrograms_SelectedIndexChanged);
             // 
             // btnChangeTestProgram
             // 
@@ -578,7 +576,7 @@ namespace StandSPS
         private System.Windows.Forms.Button btnDelTestProgram;
         public System.Windows.Forms.RadioButton rBtnSupplyOff;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox tBoxTestProgramName;
+        public System.Windows.Forms.TextBox tBoxTestProgramName;
         public System.Windows.Forms.RadioButton rBtnParamMeasureTemperature;
         private System.Windows.Forms.Button btnSaveTestProgram;
         private System.Windows.Forms.GroupBox gBoxModuleInProgramOrCycle;
@@ -596,6 +594,6 @@ namespace StandSPS
         private System.Windows.Forms.PictureBox pBoxCycle;
         private System.Windows.Forms.PictureBox pBoxCreateOrChangeTestProgramOrCycle;
         private System.Windows.Forms.PictureBox pBoxModuleInProgramOrCycle;
-        public System.Windows.Forms.ListBox listBoxProgramsList;
+        public ListView listViewPrograms;
     }
 }

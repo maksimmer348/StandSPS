@@ -5,13 +5,7 @@ namespace StandSPS;
 public partial class TestProgramsForm : Form
 {
     public SuperPresenter SuperPresenter;
-    
-    
-    //+используется только здесь
-    //+не является какойто логикой просто данные
-    //не придется делать листвью/гриедвью публичным
-    //- веротно нарушает паттерн(инфы в интернет не нашел можно при mvc зранить в форме индексы)
-    //private int indexModule;
+
     public TestProgramsForm()
     {
         InitializeComponent();
@@ -29,6 +23,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnCreateTestProgram_Click(object sender, EventArgs e)
     {
+        SuperPresenter.ProgramList.CreateNewProgram();
         //CreateNewTestProgram?.Invoke();
         //SuperPresenter.();
     }
@@ -40,6 +35,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnChangeTestProgram_Click(object sender, EventArgs e)
     {
+        SuperPresenter.ProgramList.ChangeProgram();
         //ChangeIndexTestProgram?.Invoke();
         //presenter.ChangeTestProgram();
     }
@@ -51,6 +47,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnDelTestProgram_Click(object sender, EventArgs e)
     {
+        SuperPresenter.ProgramList.RemoveProgram();
         //presenter.DeleteTestProgram();
     }
 
@@ -61,13 +58,13 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void listBoxProgramsList_SelectedIndexChanged(object sender, EventArgs e)
     {
+        SuperPresenter.ProgramList.SelectedProgram();
         //var index = listBoxProgramsList.SelectedIndex;
         //SelectTestProgram?.Invoke(index);
         ////presenter.SelectTestProgram();
     }
     private void listBoxProgramsList_MouseClick(object sender, MouseEventArgs e)
     {
-        var index = listBoxProgramsList.SelectedIndex;
         //SelectTestProgram?.Invoke(index);
         ////presenter.SelectTestProgram();
     }
@@ -102,6 +99,7 @@ public partial class TestProgramsForm : Form
     /// <param name="e"></param>
     private void btnSaveTestProgram_Click(object sender, EventArgs e)
     {
+        SuperPresenter.CreateEditProgram.SaveProgram();
         //presenter.SaveElement();
     }
 
@@ -182,8 +180,7 @@ public partial class TestProgramsForm : Form
         get => tBoxTestProgramName.Text;
         set => tBoxTestProgramName.Text = value;
     }
-
-    public int GetIndexTestProgram => listBoxProgramsList.SelectedIndex;
+    
 
     public TypeTestModule GetTypeTestProgram
     {
@@ -193,7 +190,7 @@ public partial class TestProgramsForm : Form
         }
     }
 
-    public void ModulesListUpdate(DataTable dt)
+    public void UpdateModules(DataTable dt)
     {
         dGridModulesList.DataSource = dt;
     }
@@ -214,11 +211,11 @@ public partial class TestProgramsForm : Form
 
     public void UpdateProgramsList(List<string> programsNames)
     {
-        listBoxProgramsList.DataSource = programsNames;
+        //listViewPrograms.Items.AddRange();
     }
     public void UpdateProgramsIndex(int index)
     {
-        listBoxProgramsList.SetSelected(index, true);
+        //listBoxProgramsList.SetSelected(index, true);
     }
 
     #endregion
@@ -290,7 +287,11 @@ public partial class TestProgramsForm : Form
     }
 
 
+
     #endregion
 
-   
+    private void listViewPrograms_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 }

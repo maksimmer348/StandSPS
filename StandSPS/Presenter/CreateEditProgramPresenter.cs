@@ -2,48 +2,59 @@
 
 public class CreateEditProgramPresenter : AbstractPresenter<TestProgramsForm>
 {
-    private ProgramModel programModel;
-
-    public CreateEditProgramPresenter(TestProgramsForm form, ProgramModel programModel) : base(form)
+    private TestProgram testProgram;
+    public event Action<TestProgram> OnSave;
+    public event Action<bool> OnClose;
+    public CreateEditProgramPresenter(TestProgramsForm form, TestProgram testProgram) : base(form)
     {
-        this.programModel = programModel;
-        programModel.OnChangedModuleList += ProgramModel_ChangedModuleList;
+        this.testProgram = testProgram;
+        //testProgram.OnChangedModuleList += ProgramModel_ChangedModuleList;
         //this.programModel = programModel;
     }
 
     private void ProgramModel_ChangedModuleList(List<AbstractTestModule> modulesList)
     {
+        var tupleList = new List<(string, string, int)>();
+
+        foreach (var module in modulesList)
+        {
+            tupleList.Add((module.Name, module.Description(), module.Index));
+        }
     }
 
+    public void SaveProgram()
+    {
+        if (!string.IsNullOrWhiteSpace(Form.tBoxTestProgramName.Text))
+        {
+            testProgram.Name = Form.tBoxTestProgramName.Text;
+        }
+        else
+        {
+            Form.CreateMessage("Назоваитье прграмму");
+            return;
+        }
+        OnSave?.Invoke(testProgram);
+    }
     public void AddModule()
     {
         var module = Form.SuperPresenter.ModuleLib.GetSelectedModule();
-        programModel.AddModule(module);
+        //testProgram.AddModule(module);
     }
 
     public void RemoveModule()
     {
-        //+ как ты и сказал без ндесков
-        //- надо получать список в этот метод те писать метод получения значений списка или напрямую его поулчать
-        //var name = ((AbstractTestModule)Form.dGridModulesList.CurrentCell.Value).Name;
-        
-        //+оптимально на мой взгляд 
-        //+по примеру кнопок 
-        //-прошлось делать элеменыт формы пять публичными
+       
         var index = Form.dGridModulesList.CurrentCell.RowIndex;
         
         if (index >=0)
         {
-            programModel.DeleteModule(index);
+            //testProgram.RemoveModule(index);
         }
         else
         {
             Form.CreateMessage("Выберите что удалять");
+            return;
         }
     }
-
-    public void Save()
-    {
-        TestProgram t = new TestProgram();
-    }
+    
 }

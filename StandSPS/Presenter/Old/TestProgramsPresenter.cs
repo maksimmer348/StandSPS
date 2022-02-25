@@ -41,13 +41,14 @@ public class TestProgramsPresenter
         {
             dt.Rows.Add(module.Name, module.Description(), module.Index);
         }
-        form.ModulesListUpdate(dt);
+        form.UpdateModules(dt);
     }
 
     private void ModelOnListProgramOnChanged(List<TestProgram> testPrograms)
     {
-        var testProgramsNames = testPrograms.Select(x => x.Name).ToList();
-        form.UpdateProgramsList(testProgramsNames);
+        
+        // var testProgramsNames = testPrograms.Select(x => x.Name).ToList();
+        // form.UpdateProgramsList(testProgramsNames);
     }
 
     public void CreateDefaultProgram()
@@ -83,7 +84,7 @@ public class TestProgramsPresenter
             form.CreateMessage("Программа только для чтения");
             return;
         }
-        model.SelectedTestProgram(form.GetIndexTestProgram);
+        //model.SelectedTestProgram(form.GetIndexTestProgram);
         form.NameTestProgram = model.GetNameTestProgram();
         form.UiModeEditProgram();
         //OnChangeModuleTestProgram?.Invoke(new DataTable());
